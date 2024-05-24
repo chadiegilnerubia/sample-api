@@ -9,12 +9,32 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Routes
+
 app.get("/", async (req: Request, res: Response) => {
   try {
+    // Create two users
+    await prisma.user.create({
+      data: {
+        email: "user1@example.com",
+        password: "", // Empty string for now, replace with actual password if needed
+        firstName: "User",
+        lastName: "One",
+      },
+    });
+
+    await prisma.user.create({
+      data: {
+        email: "user2@example.com",
+        password: "", // Empty string for now, replace with actual password if needed
+        firstName: "User",
+        lastName: "Two",
+      },
+    });
+    // Retrieve all users
     const users = await prisma.user.findMany();
     res.json(users);
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error });
   }
 });
 
