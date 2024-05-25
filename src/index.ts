@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors);
 // Routes
 
-app.get("/", async (req: Request, res: Response) => {
+app.get("/api", async (req: Request, res: Response) => {
   try {
     // Create two users
     await prisma.user.create({
@@ -37,6 +37,9 @@ app.get("/", async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ error: error });
   }
+});
+app.get("/", async (req: Request, res: Response) => {
+  res.json("Hello from node-express");
 });
 
 // Start the server
