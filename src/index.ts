@@ -1,13 +1,14 @@
 // src/index.ts
 import express, { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import cors from "cors";
 
 const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-
+app.use(cors);
 // Routes
 
 app.get("/", async (req: Request, res: Response) => {
