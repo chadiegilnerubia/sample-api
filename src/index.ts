@@ -7,7 +7,7 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-app.use(cors()); // Enable CORS
+app.use(cors({ credentials: true, origin: true }));
 
 // Routes
 app.get("/api", async (req: Request, res: Response) => {
