@@ -1,16 +1,15 @@
-// src/index.ts
 import express, { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 
 const prisma = new PrismaClient();
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.use(express.json());
-app.use(cors);
-// Routes
+app.use(cors()); // Enable CORS
 
+// Routes
 app.get("/api", async (req: Request, res: Response) => {
   try {
     // Create two users
@@ -31,18 +30,20 @@ app.get("/api", async (req: Request, res: Response) => {
         lastName: "Two",
       },
     });
+
     // Retrieve all users
     const users = await prisma.user.findMany();
     res.json(users);
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: onmessage });
   }
 });
+
 app.get("/", async (req: Request, res: Response) => {
   res.json("Hello from node-express");
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });
